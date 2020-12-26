@@ -23,7 +23,7 @@ import {
 } from '../../filter-json-schema';
 
 describe('getFilterJsonSchemaFor', () => {
-  let ajv: Ajv.Ajv;
+  let ajv: Ajv;
   let customerFilterSchema: JsonSchema;
   let dynamicCustomerFilterSchema: JsonSchema;
   let customerFilterExcludingWhereSchema: JsonSchema;
@@ -436,7 +436,7 @@ describe('getScopeFilterJsonSchemaFor - nested inclusion', () => {
 });
 
 describe('getWhereJsonSchemaFor', () => {
-  let ajv: Ajv.Ajv;
+  let ajv: Ajv;
   let customerWhereSchema: JsonSchema;
 
   beforeEach(() => {

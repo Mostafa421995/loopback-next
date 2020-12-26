@@ -160,7 +160,6 @@ describe('Validation at REST level', () => {
 
     before(() =>
       givenAnAppAndAClient(ProductController, {
-        nullable: false,
         compiledSchemaCache: new WeakMap(),
         ajvKeywords: ['range'],
       }),
@@ -242,7 +241,6 @@ describe('Validation at REST level', () => {
 
     before(() =>
       givenAnAppAndAClient(ProductController, {
-        nullable: false,
         compiledSchemaCache: new WeakMap(),
         $data: true,
         ajvKeywords: true,
@@ -298,7 +296,6 @@ describe('Validation at REST level', () => {
 
       before(() =>
         givenAnAppAndAClient(ProductController, {
-          nullable: false,
           compiledSchemaCache: new WeakMap(),
           $data: true,
           ajvErrorTransformer: errors => {
@@ -351,7 +348,6 @@ describe('Validation at REST level', () => {
 
     before(() =>
       givenAnAppAndAClient(ProductController, {
-        nullable: false,
         compiledSchemaCache: new WeakMap(),
         $data: true,
         ajvKeywords: true,
@@ -419,7 +415,6 @@ describe('Validation at REST level', () => {
 
       before(() =>
         givenAnAppAndAClient(ProductController, {
-          nullable: false,
           compiledSchemaCache: new WeakMap(),
           $data: true,
           ajvKeywords: true,
@@ -505,7 +500,6 @@ describe('Validation at REST level', () => {
     it('allows async custom keyword', async () => {
       app.bind(RestBindings.REQUEST_BODY_PARSER_OPTIONS).to({
         validation: {
-          nullable: false,
           logger: false, // Disable log warning - meta-schema not available
           compiledSchemaCache: new WeakMap(),
           $data: true,
@@ -513,15 +507,16 @@ describe('Validation at REST level', () => {
           ajvErrors: {
             singleError: true,
           },
-          keywords: {
-            validProductName: {
+          keywords: [
+            {
+              keyword: 'validProductName',
               async: true,
               type: 'string',
               validate: async (schema: unknown, data: string) => {
                 return data.startsWith('prod-');
               },
             },
-          },
+          ],
         },
       });
       const DATA = {
@@ -553,7 +548,6 @@ describe('Validation at REST level', () => {
     it('allows sync custom keyword', async () => {
       app.bind(RestBindings.REQUEST_BODY_PARSER_OPTIONS).to({
         validation: {
-          nullable: false,
           logger: false, // Disable log warning - meta-schema not available
           compiledSchemaCache: new WeakMap(),
           $data: true,
@@ -561,15 +555,16 @@ describe('Validation at REST level', () => {
           ajvErrors: {
             singleError: true,
           },
-          keywords: {
-            validProductName: {
+          keywords: [
+            {
+              keyword: 'validProductName',
               async: false,
               type: 'string',
               validate: (schema: unknown, data: string) => {
                 return data.startsWith('prod-');
               },
             },
-          },
+          ],
         },
       });
       const DATA = {
